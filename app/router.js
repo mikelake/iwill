@@ -10,6 +10,7 @@ import { Users } from '../models/user'
 
 import { APP_DOMAIN } from '../data/config'
 import parsePromise from '../lib/parse/promise'
+import moment from 'moment-timezone'
 
 // validates all requests with a :user param
 app.param('user', function(req, res, next, id) {
@@ -136,7 +137,8 @@ app.get('/_s/:user/:promise/:modifier?/:date*?', (req, res, next) => {
 app.get('/_s/:user/:urtext*?/edit', (req, res) => {
   log.debug('edit promise', req.promise.dataValues)
   res.render('edit', {
-    promise: req.promise
+    promise: req.promise,
+    timezones: moment.tz.names()
   })
 })
 
